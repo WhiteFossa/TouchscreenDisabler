@@ -6,7 +6,7 @@
 #include <X11/extensions/XI.h>
 
 /**
-  * @brief Class for getting physical pointer devices list.
+  * @file Class for getting physical pointer devices list.
   */
 class PointerDevicesLister : public Interfaces::IPointerDevicesLister
 {

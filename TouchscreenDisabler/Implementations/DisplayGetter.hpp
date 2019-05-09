@@ -4,7 +4,7 @@
 #include <Interfaces/IDisplayGetter.hpp>
 
 /**
- * @brief Class to get pointer to Xorg display
+ * @file Class to get pointer to Xorg display
  */
 class DisplayGetter : public Interfaces::IDisplayGetter
 {

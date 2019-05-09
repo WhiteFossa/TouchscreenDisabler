@@ -19,9 +19,8 @@ TouchscreenDisabler::TouchscreenDisabler(QWidget *parent) :
 	// Ponter devices lister
 	_pointerDevicesLister = new PointerDevicesLister();
 
-	// Input device switcher
-	_inputDeviceSwitcher = new InputDeviceSwitcher(_displayPtr);
-
+	// Device switcher
+	_inputDeviceByNameSwitcher = new InputDeviceByNameSwitcher();
 }
 
 void TouchscreenDisabler::ListDevices()
@@ -31,43 +30,23 @@ void TouchscreenDisabler::ListDevices()
 
 	for (auto device : pointerDevices)
 	{
-		qDebug() << QString(QObject::trUtf8("Device Id=%1, Name=%2")).arg(device.Id).arg(device.Name);
+		qDebug() << QString("Device Id=%1, Name=%2").arg(device.Id).arg(device.Name);
 	}
 }
 
 void TouchscreenDisabler::DisableDevice()
 {
-	auto displayGetter = new DisplayGetter();
-	auto displayPtr = displayGetter->GetDisplay();
-
-	QVector<PointerDeviceInfo> pointerDevices = _pointerDevicesLister->FindPointerDevicesByName(displayPtr, "Logitech M510");
-	for (auto device : pointerDevices)
-	{
-		_inputDeviceSwitcher->SwitchDevice(displayPtr, device.Id, false);
-	}
-
-	displayGetter->FreeDisplay(displayPtr);
-	SafeDelete(displayGetter);
+	_inputDeviceByNameSwitcher->SwitchDevice("Logitech M510", false);
 }
 
 void TouchscreenDisabler::EnableDevice()
 {
-	auto displayGetter = new DisplayGetter();
-	auto displayPtr = displayGetter->GetDisplay();
-
-	QVector<PointerDeviceInfo> pointerDevices = _pointerDevicesLister->FindPointerDevicesByName(displayPtr, "Logitech M510");
-	for (auto device : pointerDevices)
-	{
-		_inputDeviceSwitcher->SwitchDevice(displayPtr, device.Id, true);
-	}
-
-	displayGetter->FreeDisplay(displayPtr);
-	SafeDelete(displayGetter);
+	_inputDeviceByNameSwitcher->SwitchDevice("Logitech M510", true);
 }
 
 TouchscreenDisabler::~TouchscreenDisabler()
 {
-	SafeDelete(_inputDeviceSwitcher);
+	SafeDelete(_inputDeviceByNameSwitcher);
 	SafeDelete(_pointerDevicesLister);
 
 	_displayGetter->FreeDisplay(_displayPtr);

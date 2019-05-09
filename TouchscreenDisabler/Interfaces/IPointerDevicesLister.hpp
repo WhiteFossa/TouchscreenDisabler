@@ -8,6 +8,8 @@
 #include <QObject>
 #include <QString>
 #include <QVector>
+#include <Interfaces/IDisplayGetter.hpp>
+#include <Implementations/DisplayGetter.hpp>
 #include <X11/Xlib.h>
 
 /**

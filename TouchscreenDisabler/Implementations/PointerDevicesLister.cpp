@@ -3,7 +3,7 @@
 QVector<PointerDeviceInfo> PointerDevicesLister::ListPointerDevices(Display* displayPtr)
 {
 	int devicesNumber;
-	XDeviceInfo* devices = XListInputDevices(displayPtr, &devicesNumber);
+	auto devices = XListInputDevices(displayPtr, &devicesNumber);
 
 	QVector<PointerDeviceInfo> result;
 	for (int i = 0; i < devicesNumber; i++)

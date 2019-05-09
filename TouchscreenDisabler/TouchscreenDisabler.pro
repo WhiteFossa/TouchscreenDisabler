@@ -27,7 +27,8 @@ SOURCES += main.cpp\
 	touchscreendisabler.cpp \
     Implementations/DisplayGetter.cpp \
     Implementations/PointerDevicesLister.cpp \
-    Implementations/InputDeviceSwitcher.cpp
+    Implementations/InputDeviceSwitcher.cpp \
+    Implementations/InputDeviceByNameSwitcher.cpp
 
 HEADERS  += touchscreendisabler.h \
     Interfaces/IDisplayGetter.hpp \
@@ -36,7 +37,9 @@ HEADERS  += touchscreendisabler.h \
     Interfaces/IPointerDevicesLister.hpp \
     Implementations/PointerDevicesLister.hpp \
     Interfaces/IInputDeviceSwitcher.hpp \
-    Implementations/InputDeviceSwitcher.hpp
+    Implementations/InputDeviceSwitcher.hpp \
+    Interfaces/IInputDeviceByNameSwitcher.hpp \
+    Implementations/InputDeviceByNameSwitcher.hpp
 
 FORMS    += touchscreendisabler.ui
 

@@ -1,12 +1,13 @@
 #include <Implementations/InputDeviceSwitcher.hpp>
 
-InputDeviceSwitcher::InputDeviceSwitcher(Display* displayPtr)
+void InputDeviceSwitcher::SwitchDevice(int deviceId, bool turnOn)
 {
-	_deviceEnabledPropertyAtom = XInternAtom(displayPtr, DeviceEnabledPropertyName.toLocal8Bit().data(), true);
-}
+	// Getting display pointer
+	auto displayGetter = new DisplayGetter();
+	auto displayPtr = displayGetter->GetDisplay();
 
-void InputDeviceSwitcher::SwitchDevice(Display* displayPtr, int deviceId, bool turnOn)
-{
+	auto deviceEnabledPropertyAtom = XInternAtom(displayPtr, DeviceEnabledPropertyName.toLocal8Bit().data(), true);
+
 	unsigned char propertyValue = 0;
 	if (turnOn)
 	{
@@ -16,10 +17,14 @@ void InputDeviceSwitcher::SwitchDevice(Display* displayPtr, int deviceId, bool t
 	// Setting property
 	XIChangeProperty(displayPtr,
 				deviceId,
-				_deviceEnabledPropertyAtom,
+				deviceEnabledPropertyAtom,
 				XA_INTEGER,
 				8, // Is Enabled is 8-bit property
 				PropModeReplace, // Replacing property
 				&propertyValue,
 				1); // Property is 1 byte
+
+	// Freeing stuff
+	displayGetter->FreeDisplay(displayPtr);
+	SafeDelete(displayGetter);
 }

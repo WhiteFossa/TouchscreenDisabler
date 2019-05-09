@@ -1,18 +1,22 @@
 #ifndef INPUTDEVICESWITCHER_HPP
 #define INPUTDEVICESWITCHER_HPP
 
+#include <Auxiliary.hpp>
 #include <Interfaces/IInputDeviceSwitcher.hpp>
+#include <Interfaces/IDisplayGetter.hpp>
+#include <Implementations/DisplayGetter.hpp>
 #include <X11/Xatom.h>
 #include <X11/extensions/XInput2.h>
 
+/**
+ * @files Class to turn devices on and off by their IDs
+ */
 class InputDeviceSwitcher : public Interfaces::IInputDeviceSwitcher
 {
 	Q_OBJECT
 
 	public:
-		InputDeviceSwitcher(Display* displayPtr);
-
-		void SwitchDevice(Display* displayPtr, int deviceId, bool turnOn);
+		void SwitchDevice(int deviceId, bool turnOn);
 
 	private:
 
@@ -20,11 +24,6 @@ class InputDeviceSwitcher : public Interfaces::IInputDeviceSwitcher
 		 * @brief Property, containing Device Enable flag.
 		 */
 		const QString DeviceEnabledPropertyName = "Device Enabled";
-
-		/**
-		 * @brief Atom, selected by DeviceEnabledPropertyName
-		 */
-		Atom _deviceEnabledPropertyAtom;
 };
 
 #endif // INPUTDEVICESWITCHER_HPP
