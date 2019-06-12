@@ -7,9 +7,11 @@
 #include <Interfaces/IDisplayGetter.hpp>
 #include <Interfaces/IPointerDevicesLister.hpp>
 #include <Interfaces/IInputDeviceByNameSwitcher.hpp>
+#include <Interfaces/IControlledInputDevicesContainer.hpp>
 #include <Implementations/DisplayGetter.hpp>
 #include <Implementations/PointerDevicesLister.hpp>
 #include <Implementations/InputDeviceByNameSwitcher.hpp>
+#include <Implementations/ControlledInputDevicesContainer.hpp>
 #include <X11/Xlib.h>
 
 namespace Ui {
@@ -58,10 +60,11 @@ class TouchscreenDisabler : public QMainWindow
 		 */
 		Interfaces::IPointerDevicesLister* _pointerDevicesLister = nullptr;
 
+
 		/**
-		 * @brief Class to turn one device on or off.
+		 * @brief Pointer to container with controlled input devices.
 		 */
-		Interfaces::IInputDeviceByNameSwitcher* _inputDeviceByNameSwitcher = nullptr;
+		Interfaces::IControlledInputDevicesContainer* _controlledInputDevicesContainer = nullptr;
 };
 
 #endif // TOUCHSCREENDISABLER_H

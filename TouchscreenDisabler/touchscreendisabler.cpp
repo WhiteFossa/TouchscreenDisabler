@@ -19,8 +19,11 @@ TouchscreenDisabler::TouchscreenDisabler(QWidget *parent) :
 	// Ponter devices lister
 	_pointerDevicesLister = new PointerDevicesLister();
 
-	// Device switcher
-	_inputDeviceByNameSwitcher = new InputDeviceByNameSwitcher();
+	// Controlled input devices container
+	_controlledInputDevicesContainer = new ControlledInputDevicesContainer();
+
+	// TODO: Add devices list load here
+	_controlledInputDevicesContainer->Add("Logitech M510");
 }
 
 void TouchscreenDisabler::ListDevices()
@@ -36,17 +39,17 @@ void TouchscreenDisabler::ListDevices()
 
 void TouchscreenDisabler::DisableDevice()
 {
-	_inputDeviceByNameSwitcher->SwitchDevice("Logitech M510", false);
+	_controlledInputDevicesContainer->SetState(false);
 }
 
 void TouchscreenDisabler::EnableDevice()
 {
-	_inputDeviceByNameSwitcher->SwitchDevice("Logitech M510", true);
+	_controlledInputDevicesContainer->SetState(true);
 }
 
 TouchscreenDisabler::~TouchscreenDisabler()
 {
-	SafeDelete(_inputDeviceByNameSwitcher);
+	SafeDelete(_controlledInputDevicesContainer);
 	SafeDelete(_pointerDevicesLister);
 
 	_displayGetter->FreeDisplay(_displayPtr);
