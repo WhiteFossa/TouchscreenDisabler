@@ -9,21 +9,24 @@
 #include <QString>
 #include <X11/Xlib.h>
 
-namespace Interfaces
+namespace Main
 {
-	class IInputDeviceSwitcher : public QObject
+	namespace Interfaces
 	{
-		Q_OBJECT
+		class IInputDeviceSwitcher : public QObject
+		{
+			Q_OBJECT
 
-		public:
+			public:
 
-			/**
-			 * @brief Turns given input device on and off.
-			 * @param deviceId Which device to turn.
-			 * @param turnOn If true, then device will be turn on, if false - off.
-			 */
-			virtual void SwitchDevice(int deviceId, bool turnOn) = 0;
-	};
+				/**
+				 * @brief Turns given input device on and off.
+				 * @param deviceId Which device to turn.
+				 * @param turnOn If true, then device will be turn on, if false - off.
+				 */
+				virtual void SwitchDevice(int deviceId, bool turnOn) = 0;
+		};
+	}
 }
 
 #endif // IDEVICESWITCHER_HPP

@@ -29,7 +29,8 @@ SOURCES += main.cpp\
     Implementations/PointerDevicesLister.cpp \
     Implementations/InputDeviceSwitcher.cpp \
     Implementations/InputDeviceByNameSwitcher.cpp \
-    Implementations/ControllerInputDevicesContainer.cpp
+    Implementations/ControllerInputDevicesContainer.cpp \
+    ControlledInputDevicesDialog/Implementations/ControlledInputDevicesDialog.cpp
 
 HEADERS  += touchscreendisabler.h \
     Interfaces/IDisplayGetter.hpp \
@@ -42,8 +43,11 @@ HEADERS  += touchscreendisabler.h \
     Interfaces/IInputDeviceByNameSwitcher.hpp \
     Implementations/InputDeviceByNameSwitcher.hpp \
     Interfaces/IControlledInputDevicesContainer.hpp \
-    Implementations/ControlledInputDevicesContainer.hpp
+    Implementations/ControlledInputDevicesContainer.hpp \
+    ControlledInputDevicesDialog/Implementations/ControlledInputDevicesDialog.hpp \
+    ControlledInputDevicesDialog/Interfaces/IControlledInputDevicesDialog.hpp
 
-FORMS    += touchscreendisabler.ui
+FORMS    += touchscreendisabler.ui \
+    ControlledInputDevicesDialog/Implementations/ControlledInputDevicesDialog.ui
 
 LIBS	+= -L/usr/X11/lib -lX11 -lXi

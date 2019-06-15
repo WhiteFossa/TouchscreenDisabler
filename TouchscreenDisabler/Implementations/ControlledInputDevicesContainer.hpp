@@ -8,7 +8,7 @@
 #include <Interfaces/IControlledInputDevicesContainer.hpp>
 #include <Interfaces/IInputDeviceByNameSwitcher.hpp>
 
-class ControlledInputDevicesContainer : public Interfaces::IControlledInputDevicesContainer
+class ControlledInputDevicesContainer : public Main::Interfaces::IControlledInputDevicesContainer
 {
 	Q_OBJECT
 
@@ -41,7 +41,7 @@ class ControlledInputDevicesContainer : public Interfaces::IControlledInputDevic
 		/**
 		 * @brief Pointer to devices switcher.
 		 */
-		Interfaces::IInputDeviceByNameSwitcher* _switcher;
+		Main::Interfaces::IInputDeviceByNameSwitcher* _switcher;
 };
 
 #endif // CONTROLLEDINPUTDEVICESCONTAINER_HPP

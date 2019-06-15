@@ -1,5 +1,6 @@
 #include "ui_touchscreendisabler.h"
 #include "touchscreendisabler.h"
+#include <ControlledInputDevicesDialog/Implementations/ControlledInputDevicesDialog.hpp>
 
 TouchscreenDisabler::TouchscreenDisabler(QWidget *parent) :
 	QMainWindow(parent),
@@ -11,6 +12,7 @@ TouchscreenDisabler::TouchscreenDisabler(QWidget *parent) :
 	QObject::connect(ui->btnListDevices, SIGNAL(clicked(bool)), this, SLOT(ListDevices()));
 	QObject::connect(ui->btnDisable, SIGNAL(clicked(bool)), this, SLOT(DisableDevice()));
 	QObject::connect(ui->btnEnable, SIGNAL(clicked(bool)), this, SLOT(EnableDevice()));
+	QObject::connect(ui->btnSetupControlledDevices, SIGNAL(clicked(bool)), this, SLOT(SlotShowControlledInputDevicesDialog()));
 
 	// Getting display
 	_displayGetter = new DisplayGetter();
@@ -45,6 +47,17 @@ void TouchscreenDisabler::DisableDevice()
 void TouchscreenDisabler::EnableDevice()
 {
 	_controlledInputDevicesContainer->SetState(true);
+}
+
+void TouchscreenDisabler::SlotShowControlledInputDevicesDialog()
+{
+	auto dialog = new ControlledInputDevicesDialog::ControlledInputDevicesDialog(_controlledInputDevicesContainer, this);
+
+	auto result = dialog->exec();
+
+	qDebug() << result;
+
+	SafeDelete(dialog);
 }
 
 TouchscreenDisabler::~TouchscreenDisabler()

@@ -6,7 +6,7 @@
 /**
  * @file Class to get pointer to Xorg display
  */
-class DisplayGetter : public Interfaces::IDisplayGetter
+class DisplayGetter : public Main::Interfaces::IDisplayGetter
 {
 	Q_OBJECT
 

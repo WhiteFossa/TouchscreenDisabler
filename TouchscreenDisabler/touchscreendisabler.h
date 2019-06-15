@@ -42,13 +42,18 @@ class TouchscreenDisabler : public QMainWindow
 		 */
 		void EnableDevice();
 
+		/**
+		 * @brief Slot to display controlled input devices dialog to set up controlled devices.
+		 */
+		void SlotShowControlledInputDevicesDialog();
+
 	private:
 		Ui::TouchscreenDisabler *ui;
 
 		/**
 		 * @brief Class to get pointer to X display.
 		 */
-		Interfaces::IDisplayGetter* _displayGetter = nullptr;
+		Main::Interfaces::IDisplayGetter* _displayGetter = nullptr;
 
 		/**
 		 * @brief Default display (i.e. one, specified by Display environment variable).
@@ -58,13 +63,13 @@ class TouchscreenDisabler : public QMainWindow
 		/**
 		 * @brief Class to get pointer devices list.
 		 */
-		Interfaces::IPointerDevicesLister* _pointerDevicesLister = nullptr;
+		Main::Interfaces::IPointerDevicesLister* _pointerDevicesLister = nullptr;
 
 
 		/**
 		 * @brief Pointer to container with controlled input devices.
 		 */
-		Interfaces::IControlledInputDevicesContainer* _controlledInputDevicesContainer = nullptr;
+		Main::Interfaces::IControlledInputDevicesContainer* _controlledInputDevicesContainer = nullptr;
 };
 
 #endif // TOUCHSCREENDISABLER_H

@@ -11,7 +11,7 @@
 /**
  * @files Class to turn devices on and off by their IDs
  */
-class InputDeviceSwitcher : public Interfaces::IInputDeviceSwitcher
+class InputDeviceSwitcher : public Main::Interfaces::IInputDeviceSwitcher
 {
 	Q_OBJECT
 

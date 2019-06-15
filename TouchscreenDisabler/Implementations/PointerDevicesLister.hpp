@@ -8,13 +8,13 @@
 /**
   * @file Class for getting physical pointer devices list.
   */
-class PointerDevicesLister : public Interfaces::IPointerDevicesLister
+class PointerDevicesLister : public Main::Interfaces::IPointerDevicesLister
 {
 	Q_OBJECT
 
 	public:
-		QVector<PointerDeviceInfo> ListPointerDevices(Display* displayPtr);
-		QVector<PointerDeviceInfo> FindPointerDevicesByName(Display* displayPtr, QString name);
+		QVector<Main::PointerDeviceInfo> ListPointerDevices(Display* displayPtr);
+		QVector<Main::PointerDeviceInfo> FindPointerDevicesByName(Display* displayPtr, QString name);
 };
 
 

@@ -8,26 +8,29 @@
 #include <QObject>
 #include <X11/Xlib.h>
 
-namespace Interfaces
+namespace Main
 {
-	class IDisplayGetter : public QObject
+	namespace Interfaces
 	{
-		Q_OBJECT
+		class IDisplayGetter : public QObject
+		{
+			Q_OBJECT
 
-		public:
+			public:
 
-			/**
-			 * @brief Call this method to get pointer to Xorg display.
-			 * @return Pointer to Xorg display.
-			 */
-			virtual Display* GetDisplay() = 0;
+				/**
+				 * @brief Call this method to get pointer to Xorg display.
+				 * @return Pointer to Xorg display.
+				 */
+				virtual Display* GetDisplay() = 0;
 
-			/**
-			 * @brief Call to close display, returned by GetDisplay().
-			 * @param displayPtr Pointer to display to close.
-			 */
-			virtual void FreeDisplay(Display* displayPtr) = 0;
-	};
+				/**
+				 * @brief Call to close display, returned by GetDisplay().
+				 * @param displayPtr Pointer to display to close.
+				 */
+				virtual void FreeDisplay(Display* displayPtr) = 0;
+		};
+	}
 }
 
 #endif // IDISPLAYGETTER_H

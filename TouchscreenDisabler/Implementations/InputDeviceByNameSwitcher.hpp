@@ -14,7 +14,7 @@
 #include <Implementations/PointerDevicesLister.hpp>
 #include <Implementations/InputDeviceSwitcher.hpp>
 
-class InputDeviceByNameSwitcher : public Interfaces::IInputDeviceByNameSwitcher
+class InputDeviceByNameSwitcher : public Main::Interfaces::IInputDeviceByNameSwitcher
 {
 	Q_OBJECT
 

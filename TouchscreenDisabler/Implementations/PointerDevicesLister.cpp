@@ -1,11 +1,11 @@
 #include <Implementations/PointerDevicesLister.hpp>
 
-QVector<PointerDeviceInfo> PointerDevicesLister::ListPointerDevices(Display* displayPtr)
+QVector<Main::PointerDeviceInfo> PointerDevicesLister::ListPointerDevices(Display* displayPtr)
 {
 	int devicesNumber;
 	auto devices = XListInputDevices(displayPtr, &devicesNumber);
 
-	QVector<PointerDeviceInfo> result;
+	QVector<Main::PointerDeviceInfo> result;
 	for (int i = 0; i < devicesNumber; i++)
 	{
 		auto deviceInfo = devices[i];
@@ -16,7 +16,7 @@ QVector<PointerDeviceInfo> PointerDevicesLister::ListPointerDevices(Display* dis
 			continue;
 		}
 
-		PointerDeviceInfo resultDevice;
+		Main::PointerDeviceInfo resultDevice;
 		resultDevice.Id = deviceInfo.id;
 		resultDevice.Name = QString::fromUtf8(deviceInfo.name);
 
@@ -26,11 +26,11 @@ QVector<PointerDeviceInfo> PointerDevicesLister::ListPointerDevices(Display* dis
 	return result;
 }
 
-QVector<PointerDeviceInfo> PointerDevicesLister::FindPointerDevicesByName(Display* displayPtr, QString name)
+QVector<Main::PointerDeviceInfo> PointerDevicesLister::FindPointerDevicesByName(Display* displayPtr, QString name)
 {
 	auto allDevices = ListPointerDevices(displayPtr);
 
-	QVector<PointerDeviceInfo> result;
+	QVector<Main::PointerDeviceInfo> result;
 
 	for (auto device : allDevices)
 	{
