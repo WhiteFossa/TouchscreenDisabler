@@ -3,6 +3,8 @@
 
 #include <QMainWindow>
 #include <QDebug>
+#include <QDataStream>
+#include <QTextStream>
 #include <Auxiliary.hpp>
 #include <Interfaces/IDisplayGetter.hpp>
 #include <Interfaces/IPointerDevicesLister.hpp>

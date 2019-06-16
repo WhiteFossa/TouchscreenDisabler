@@ -5,8 +5,14 @@
   * @file Class with dialog, allowing to select which input devices will be controlled.
   */
 
+#include <qcoreevent.h>
+#include <QStyleOption>
+#include <QDataStream>
+#include <QTextStream>
 #include <ControlledInputDevicesDialog/Interfaces/IControlledInputDevicesDialog.hpp>
 #include <Interfaces/IControlledInputDevicesContainer.hpp>
+#include <Implementations/DisplayGetter.hpp>
+#include <Implementations/PointerDevicesLister.hpp>
 #include <ui_ControlledInputDevicesDialog.h>
 
 namespace ControlledInputDevicesDialog
@@ -42,6 +48,44 @@ namespace ControlledInputDevicesDialog
 			 * @brief Devices are read from here / wrote here.
 			 */
 			Main::Interfaces::IControlledInputDevicesContainer* _devicesContainer;
+
+			/**
+			 * @brief Resets dialod, loads controlled devices from container and available devices from Xorg.
+			 */
+			void Reset();
+
+			/**
+			 * @brief Populates available devices list using data from Xorg and contents of controlled devices list.
+			 */
+			void PopulateAvailableDevicesList();
+
+		private slots:
+
+			/**
+			 * @brief Call this slot when button in button box is clicked.
+			 * @param button Pointer to clicked button.
+			 */
+			void SlotButtonBoxClicked(QAbstractButton* button);
+
+			/**
+			 * @brief Call when selection in available devices list changed.
+			 */
+			void SlotAvailableDevicesSelectionChanged();
+
+			/**
+			 * @brief Call when selection in controlled devices list changed.
+			 */
+			void SlotControlledDevicesSelectionChanged();
+
+			/**
+			 * @brief Call when "To Controlled List" button is pressed.
+			 */
+			void SlotButtonToControlledClicked();
+
+			/**
+			 * @brief Call when "To Available List" button is pressed.
+			 */
+			void SlotButtonToAvailableClicked();
 	};
 }
 

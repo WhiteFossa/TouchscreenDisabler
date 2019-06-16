@@ -1,12 +1,16 @@
 #include "ui_touchscreendisabler.h"
 #include "touchscreendisabler.h"
 #include <ControlledInputDevicesDialog/Implementations/ControlledInputDevicesDialog.hpp>
+#include <QDesktopWidget>
 
 TouchscreenDisabler::TouchscreenDisabler(QWidget *parent) :
 	QMainWindow(parent),
 	ui(new Ui::TouchscreenDisabler)
 {
 	ui->setupUi(this);
+
+	// Centering main window
+	this->setGeometry(QStyle::alignedRect(Qt::LeftToRight, Qt::AlignCenter, this->size(), qApp->desktop()->availableGeometry()));
 
 	// Signals-slots connection
 	QObject::connect(ui->btnListDevices, SIGNAL(clicked(bool)), this, SLOT(ListDevices()));
@@ -30,7 +34,6 @@ TouchscreenDisabler::TouchscreenDisabler(QWidget *parent) :
 
 void TouchscreenDisabler::ListDevices()
 {
-	//QVector<PointerDeviceInfo> pointerDevices = _pointerDevicesLister->FindPointerDevicesByName(_displayPtr, "Logitech M510");
 	auto pointerDevices = _pointerDevicesLister->ListPointerDevices(_displayPtr);
 
 	for (auto device : pointerDevices)
