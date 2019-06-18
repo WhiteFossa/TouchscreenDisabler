@@ -2,6 +2,7 @@
 #include <QtGlobal>
 #include <QString>
 #include <Auxiliary.hpp>
+#include <QPushButton>
 #include <QDebug>
 
 namespace ControlledInputDevicesDialog
@@ -15,17 +16,34 @@ namespace ControlledInputDevicesDialog
 
 	ControlledInputDevicesDialog::ControlledInputDevicesDialog(Main::Interfaces::IControlledInputDevicesContainer* controlledDevicesContainer,
 									QWidget* parent, Qt::WindowFlags flags)
-									: IControlledInputDevicesDialog(parent, flags),
+									: IControlledInputDevicesDialog(controlledDevicesContainer, parent, flags),
 									ui(new Ui::dControlledInputDevices)
 	{
 		ui->setupUi(this);
 
 		// Signal-slot connection
-		QObject::connect(ui->buttonBox, SIGNAL(clicked(QAbstractButton*)), this, SLOT(SlotButtonBoxClicked(QAbstractButton*)));
+
+		// Reset button
+		QObject::connect(ui->buttonBox->button(QDialogButtonBox::Reset), SIGNAL(clicked(bool)), this, SLOT(SlotReset()));
+
+		// Apply button
+		QObject::connect(ui->buttonBox->button(QDialogButtonBox::Apply), SIGNAL(clicked(bool)), this, SLOT(SlotApply()));
+
+		// Selection change in lists
 		QObject::connect(ui->listAvailable, SIGNAL(itemSelectionChanged()), this, SLOT(SlotAvailableDevicesSelectionChanged()));
 		QObject::connect(ui->listControlled, SIGNAL(itemSelectionChanged()), this, SLOT(SlotControlledDevicesSelectionChanged()));
+
+		// Move device to controlled list
 		QObject::connect(ui->btnToControlled, SIGNAL(clicked(bool)), this, SLOT(SlotButtonToControlledClicked()));
+
+		// Move device to available list
 		QObject::connect(ui->btnToAvailable, SIGNAL(clicked(bool)), this, SLOT(SlotButtonToAvailableClicked()));
+
+		// Applying settings on dialog accept
+		QObject::connect(this, SIGNAL(accepted()), this, SLOT(SlotApply()));
+
+		// Resetting settings on dialog cancel
+		QObject::connect(this, SIGNAL(rejected()), this, SLOT(SlotReset()));
 
 		_devicesContainer = controlledDevicesContainer;
 
@@ -80,13 +98,9 @@ namespace ControlledInputDevicesDialog
 		ui->btnToControlled->setEnabled(false);
 	}
 
-	void ControlledInputDevicesDialog::SlotButtonBoxClicked(QAbstractButton* button)
+	void ControlledInputDevicesDialog::SlotReset()
 	{
-		if (button == (QAbstractButton*)ui->buttonBox->button(QDialogButtonBox::Reset))
-		{
-			// Reset button
-			Reset();
-		}
+		Reset();
 	}
 
 	void ControlledInputDevicesDialog::SlotAvailableDevicesSelectionChanged()
@@ -135,6 +149,37 @@ namespace ControlledInputDevicesDialog
 		ui->btnToAvailable->setEnabled(false);
 
 		PopulateAvailableDevicesList();
+	}
+
+	void ControlledInputDevicesDialog::Apply()
+	{
+		qDebug() << "Apply settings";
+	}
+
+	void ControlledInputDevicesDialog::SlotApply()
+	{
+		// Iterating through container and removing everything that not in controlled list
+		auto currentControlledDevices = _devicesContainer->List();
+
+		for(auto device : currentControlledDevices)
+		{
+			if (0 == ui->listControlled->findItems(device, Qt::MatchExactly).count())
+			{
+				// Need to remove it
+				_devicesContainer->Remove(device);
+			}
+		}
+
+		// Iterating through controlled devices list and adding everything which isn't in container
+		currentControlledDevices = _devicesContainer->List();
+
+		for (auto device : ui->listControlled->findItems("*", Qt::MatchWildcard))
+		{
+			if (!currentControlledDevices.contains(device->text()))
+			{
+				_devicesContainer->Add(device->text());
+			}
+		}
 	}
 }
 

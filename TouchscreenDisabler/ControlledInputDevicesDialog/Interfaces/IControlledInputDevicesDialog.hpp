@@ -23,7 +23,11 @@ namespace ControlledInputDevicesDialog
 
 				IControlledInputDevicesDialog() : QDialog() {}
 
-				IControlledInputDevicesDialog(QWidget* parent, Qt::WindowFlags flags) : QDialog(parent, flags) {}
+				IControlledInputDevicesDialog(Main::Interfaces::IControlledInputDevicesContainer* controlledDevicesContainer,
+											  QWidget* parent, Qt::WindowFlags flags) : QDialog(parent, flags)
+				{
+					Q_UNUSED(controlledDevicesContainer)
+				}
 		};
 	}
 }

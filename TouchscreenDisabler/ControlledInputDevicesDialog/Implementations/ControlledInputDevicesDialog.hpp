@@ -59,13 +59,17 @@ namespace ControlledInputDevicesDialog
 			 */
 			void PopulateAvailableDevicesList();
 
+			/**
+			 * @brief Applies changes, i.e. putting new devices list into container.
+			 */
+			void Apply();
+
 		private slots:
 
 			/**
-			 * @brief Call this slot when button in button box is clicked.
-			 * @param button Pointer to clicked button.
+			 * @brief Called when need to reset settings
 			 */
-			void SlotButtonBoxClicked(QAbstractButton* button);
+			void SlotReset();
 
 			/**
 			 * @brief Call when selection in available devices list changed.
@@ -86,6 +90,11 @@ namespace ControlledInputDevicesDialog
 			 * @brief Call when "To Available List" button is pressed.
 			 */
 			void SlotButtonToAvailableClicked();
+
+			/**
+			 * @brief Call when need to apply settings exist.
+			 */
+			void SlotApply();
 	};
 }
 
